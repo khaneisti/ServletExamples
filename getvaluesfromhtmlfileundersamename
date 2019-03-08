@@ -1,0 +1,74 @@
+package servletandjsp;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class GetValuesUnderSameName
+ */
+@WebServlet("/getvaluesundersamename")
+public class GetValuesUnderSameName extends HttpServlet {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		response.setContentType("text/html");
+		PrintWriter pw = response.getWriter();
+		String[] choosed_habits = request.getParameterValues("habit");
+		if(choosed_habits == null)
+		{
+			pw.println("you must need to choose at least one habit");
+		}
+		else
+		{
+		for(String habit : choosed_habits)
+			pw.println("your habits are"+habit);
+		}
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+
+}
+
+
+
+
+
+
+//HTML FILE THAT WE USED TO INTERACT WITH USER
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>get values under same name</title>
+</head>
+<body>
+<form action='getvaluesundersamename' method='post' >
+<h1>here are some habits, choose yours </h1>Dancing
+<input type="checkbox" name='habit' value='dancing'/><br/>watch movies
+<input type='checkbox' name ='habit' value='watch movies'/><br/>walking
+<input type ='checkbox' name ='habit' value='walking'/><br/>singing
+<input type	= 'checkbox' name ='habit' value = 'singing'/><br/>
+<input type ='submit' value = 'submit'/>
+ </form>
+</body>
+</html>
