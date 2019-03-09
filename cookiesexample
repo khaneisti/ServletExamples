@@ -1,0 +1,77 @@
+package servletandjsp;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.http.Cookie;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class SetCookies
+ */
+@WebServlet("/exampleofcookies")
+public class SetCookies extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		response.setContentType("text/html");
+		PrintWriter pw = response.getWriter();
+		Cookie[] ck = request.getCookies();
+		
+		if(ck != null)
+		{
+			for(Cookie c : ck)
+				pw.println("your cookies name is \t"+c.getName()+"and value of this cookie is"+c.getValue());
+		}
+		
+		
+			Cookie c = new Cookie(request.getParameter("nametext"), request.getParameter("passwordtext"));
+			//c.setMaxAge(0);
+			response.addCookie(c);
+			
+		
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+//HTML FILE THAT WE USED TO GET COOKIE'S VALUE FROM USER
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Cookies example</title>
+</head>
+<body>
+<form action="exampleofcookies" method ="post">
+Enter your name : <input type ="text" name ="nametext"/><br/>
+Enter your password : <input type ="password" name="passwordtext"/><br/>
+<input type ="submit" value ="submit"/>
+</form>
+</body>
+</html>
