@@ -1,0 +1,118 @@
+package servletandjsp;
+
+
+// FILES WHERE WE ASSIGN USER VALUE TO THE HIDDEN FROM FIELD
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class ExampleOfHiddenFormField
+ */
+@WebServlet("/exampleofhiddenformfield")
+public class ExampleOfHiddenFormField extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		response.setContentType("text/html");
+		PrintWriter pw = response.getWriter();
+		pw.println("<html>");
+		pw.println("<head>");
+		pw.println("<title>");
+		pw.println("Send a user value by hidden form field ");
+		pw.println("</title>");
+		pw.println("</head>");
+		pw.println("<body>");
+		pw.println("<form action ='getvaluefromhiddenformfield' method='post'>");
+		pw.println("<input type='hidden' name ='huname' value='"+request.getParameter("nametext")+"'>");
+		pw.println("<input type ='submit' value ='submit'>");
+		pw.println("</form>");
+		pw.println("</body>");
+		pw.println("</html>");
+		pw.close();
+		
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+
+}
+
+
+
+
+//FILE WHERE WE EXTRACT VALUE FROM HIDDEN FORM FIELD
+package servletandjsp;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class GetValueFromHiddenFormField
+ */
+@WebServlet("/getvaluefromhiddenformfield")
+public class GetValueFromHiddenFormField extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		response.setContentType("text/html");
+		PrintWriter pw = response.getWriter();
+		String huname = request.getParameter("huname");
+		pw.print("hii" + huname);
+		pw.close();
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+
+}
+
+
+
+
+
+//HTML FILE THAT WE USED TO GET VALUE FROM USER
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Hidden form field example</title>
+</head>
+<body>
+<form action="exampleofhiddenformfield" method="post">
+Enter your name : <input type="text" name ="nametext"/><br/>
+Enter your password : <input type = "password" name ="passwordtext"/>
+<br/>
+<input type="submit" value ="submit" />
+</form>
+</body>
+</html>
